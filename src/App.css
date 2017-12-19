@@ -1,0 +1,26 @@
+span{
+  margin-right: 10px ;
+  width: 300px;
+}
+
+button{
+  margin-left: 10px;
+  margin-top: 5px;
+}
+
+.action{
+  margin-top: 50px;
+}
+
+hr{
+  color: black;
+}
+
+button h3{
+  display: inline;
+}
+.product{
+  background-color: azure;
+  height: 100%;
+  margin-left: 30px;
+}
