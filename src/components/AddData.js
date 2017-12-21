@@ -28,12 +28,12 @@ class AddData extends Component {
 
 // onChange method on each form input will call this handleChange method: Params(event object)
     handleChange(event) {
-        let date;
-        let time;
-        let longitude;
-        let latitude;
-        let elevation;
-       let newState = [];
+       //  let date;
+       //  let time;
+       //  let longitude;
+       //  let latitude;
+       //  let elevation;
+       // let newState = [];
 
         if (event.target.name == 'date'){
 
@@ -142,23 +142,23 @@ class AddData extends Component {
 
                         <label>
                             Date:
-                            <input className="form-control" type="date" name="date" value={this.state.newRecord.date} onChange={this.handleChange} />
+                            <input className="form-control" type="date" name="date"  onChange={this.handleChange} />
                         </label>
                         <label>
                             Time:
-                            <input className="form-control" type="time" step="2" name="time" value={this.state.newRecord.time} onChange={this.handleChange} />
+                            <input className="form-control" type="time" step="2" name="time"  onChange={this.handleChange} />
                         </label>
                         <label>
                             Longitude:
-                            <input className="form-control" type="text" name="longitude" value={this.state.newRecord.longitude} onChange={this.handleChange} />
+                            <input className="form-control" type="text" name="longitude"  onChange={this.handleChange} />
                         </label>
                         <label>
                             latitude:
-                            <input className="form-control" type="text" name="latitude" value={this.state.newRecord.latitude} onChange={this.handleChange} />
+                            <input className="form-control" type="text" name="latitude"  onChange={this.handleChange} />
                         </label>
                         <label>
                             Elevation:
-                            <input className="form-control" type="text" name="elevation" value={this.state.newRecord.elevation} onChange={this.handleChange} />
+                            <input className="form-control" type="text" name="elevation"  onChange={this.handleChange} />
                         </label>
 
                     </form>

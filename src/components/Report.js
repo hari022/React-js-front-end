@@ -19,7 +19,11 @@ class Report extends Component {
             pointB:null,
             displayResult:false,
             result:[],
-            productName:''
+            productName:[],
+            confirmation:false,
+            reportId:[],
+            selectedProducts:false,
+            queryParam:''
 
         }
 
@@ -73,14 +77,20 @@ class Report extends Component {
     }
     //Sets the time range
     submit(){
-
+        const parameterizeArray = (key, arr) => {
+            arr = arr.map(encodeURIComponent)
+            return 'http://127.0.0.1:8000/api/listings/?'+key+'[]=' + arr.join('&'+key+'[]=')
+        }
+        let param = parameterizeArray('id', this.state.reportId);
+        console.log('param', param)
         // console.log(Date.parse(this.state.date+this.state.time))
         // console.log(Date.parse(this.state.dateTo+this.state.timeTo))
+
         this.setState({
             pointA:Date.parse(this.state.date+this.state.time),
             pointB:Date.parse(this.state.dateTo+this.state.timeTo)
         })
-        fetch('http://127.0.0.1:8000/api/listings/'+this.state.productId,{
+        fetch(param,{
             method: 'GET'
         }).then(response => response.json()).then(
             (data) => {
@@ -116,28 +126,44 @@ class Report extends Component {
 
     }
 
-    getLocation(id, name){
+    getLocation(){
 
         this.setState({
-            productId:id,
             displayForm:true,
-            productName:name
         })
 
     }
+    selectProducts(id,name){
+       let reportId = this.state.reportId;
+       let reportName = this.state.productName;
+        reportName.push(name);
+        reportId.push(id)
+        this.setState({
+            reportId:reportId,
+            productName:reportName
+        })
+        console.log('id',this.state.reportId);
+        console.log('name',this.state.productName);
+    }
     //Main render method
     render() {
-        const {products, displayForm, displayResult} = this.state;
+        const {products, displayForm, displayResult, confirmation} = this.state;
         if(!displayForm && !displayResult){
             return(
                 <div className="container">
-                    {/*Displays products*/}
                     <h2>Please Select the Product to generate a report:</h2>
                     {products.map(product=>
                         <span key={product.id}>
-                            <button onClick={()=>this.getLocation(product.id, product.productdescription)} className="btn btn-info"><h3>{product.productdescription}</h3></button>
+                            {/*<button onClick={()=>this.getLocation(product.id, product.productdescription)} className="btn btn-info"><h3>{product.productdescription}</h3></button>*/}
+                            <button onClick={()=>this.selectProducts(product.id, product.productdescription)} className="btn btn-info"><h3>{product.productdescription}</h3></button>
                         </span>
                     )}<br></br>
+                    <button onClick={()=>this.getLocation()} className="btn btn-danger"><h3>Submit</h3></button>
+                    {/*Displays products*/}
+                    <h1>Selected Products are:</h1>
+                    {this.state.productName.map(product=>
+                        <span className="lead" key={product}>{product},</span>
+                    )}
                 </div>
             );
         //    Displays form
@@ -173,7 +199,7 @@ class Report extends Component {
         }else if(!displayForm && displayResult){
             return(
                 <div className="container">
-                    <h1>All Available Listings for {this.state.productName}:</h1>
+                    <h1>All Available Listings for {this.state.productName},:</h1>
                     {this.state.result.map(product=>
                         <span key={product.id}>
                             <h3>longitude: {product.longitude}</h3>

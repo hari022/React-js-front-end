@@ -22,12 +22,12 @@ class UpdateData extends Component {
     }
 // onChange method on each form input will call this handleChange method: Params(event object)
     handleChange(event) {
-        let date;
-        let time;
-        let longitude;
-        let latitude;
-        let elevation;
-        let newState = [];
+        // let date;
+        // let time;
+        // let longitude;
+        // let latitude;
+        // let elevation;
+        // let newState = [];
 
         if (event.target.name == 'date'){
             this.setState({
